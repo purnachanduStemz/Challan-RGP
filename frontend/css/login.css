@@ -1,0 +1,62 @@
+/* Login page — split layout. Same palette/fonts as style.css (ink, green, lime, Manrope). */
+body.lg { display: block; padding: 0; min-height: 100vh; background: var(--paper); }
+.lg-shell { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); min-height: 100vh; }
+
+/* Brand panel */
+.lg-brand { position: relative; overflow: hidden; background: var(--ink); color: #fff; padding: clamp(32px, 5vw, 64px); display: flex; flex-direction: column; justify-content: space-between; gap: 40px; isolation: isolate; }
+.lg-brand::before { content: ''; position: absolute; z-index: -1; width: 70vmin; height: 70vmin; right: -22vmin; top: -24vmin; border-radius: 50%; background: radial-gradient(circle, rgba(200,239,75,.30), transparent 65%); animation: lgDrift 14s ease-in-out infinite alternate; }
+.lg-brand::after { content: ''; position: absolute; z-index: -1; width: 80vmin; height: 80vmin; left: -30vmin; bottom: -38vmin; border-radius: 50%; background: radial-gradient(circle, rgba(39,99,76,.85), transparent 68%); animation: lgDrift 18s ease-in-out infinite alternate-reverse; }
+@keyframes lgDrift { to { transform: translate3d(5vmin, 4vmin, 0) scale(1.08); } }
+.lg-logo-chip { align-self: flex-start; background: #fff; border-radius: 10px; padding: 8px 14px; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+.lg-logo-chip img { display: block; height: 44px; }
+.lg-pitch h2 { all: unset; display: block; font: 800 clamp(30px, 3.6vw, 48px)/1.08 'Manrope', sans-serif; letter-spacing: -0.045em; max-width: 14em; }
+.lg-pitch p { margin: 18px 0 0; max-width: 34em; color: #c5d0c9; font-size: 15px; line-height: 1.65; }
+
+/* The memorable moment: a pass that moves through its stages */
+.lg-pass { width: min(100%, 400px); background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.16); border-radius: 16px; padding: 20px 22px; backdrop-filter: blur(14px); box-shadow: 0 24px 60px rgba(0,0,0,.3); transform: rotate(-2deg); animation: lgFloat 6s ease-in-out infinite alternate, pop .9s var(--ease) .5s both; }
+@keyframes lgFloat { from { translate: 0 0; } to { translate: 0 -8px; } }
+.lg-pass-top { display: flex; justify-content: space-between; align-items: center; font: 500 12px 'DM Mono', monospace; color: #c5d0c9; }
+.lg-pass-top b { color: #fff; font-weight: 500; }
+.lg-badge { background: var(--lime); color: var(--ink); font: 800 11px 'Manrope', sans-serif; padding: 4px 10px; border-radius: 999px; }
+.lg-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 18px; font-size: 12px; font-weight: 700; color: #9fb0a7; }
+.lg-bar { grid-column: 1 / -1; height: 5px; border-radius: 5px; background: rgba(255,255,255,.14); overflow: hidden; }
+.lg-bar i { display: block; height: 100%; background: var(--lime); border-radius: 5px; transform-origin: left; animation: lgFill 2.8s var(--ease) 1.1s both; }
+@keyframes lgFill { from { transform: scaleX(.04); } to { transform: scaleX(1); } }
+.lg-steps span:nth-child(3) { text-align: center; } .lg-steps span:nth-child(4) { text-align: right; }
+.lg-steps span { animation: lgLit .5s ease both; } .lg-steps span:nth-child(2) { animation-delay: .9s; } .lg-steps span:nth-child(3) { animation-delay: 2s; } .lg-steps span:nth-child(4) { animation-delay: 3.2s; }
+@keyframes lgLit { from { color: #9fb0a7; } to { color: #fff; } }
+
+/* Form panel */
+.lg-form-side { display: grid; place-items: center; padding: clamp(24px, 5vw, 64px); background: radial-gradient(circle at 100% 0%, rgba(200,239,75,.16), transparent 26rem), var(--paper); }
+.lg-panel { width: 100%; max-width: 400px; }
+.lg-panel > * { animation: rise .7s var(--ease) both; }
+.lg-panel > :nth-child(1) { animation-delay: .1s; } .lg-panel > :nth-child(2) { animation-delay: .18s; } .lg-panel > :nth-child(3) { animation-delay: .26s; } .lg-panel > :nth-child(4) { animation-delay: .34s; }
+.lg-panel .lg-mobile-logo { display: none; height: 44px; margin-bottom: 20px; }
+.lg-panel h1 { margin: 0 0 8px; font-size: clamp(28px, 3vw, 36px); letter-spacing: -0.05em; }
+.lg-sub { margin: 0 0 28px; color: var(--ink-soft); font-size: 14px; line-height: 1.55; }
+.lg-field { margin-bottom: 18px; }
+.lg-field label { margin: 0 0 8px; text-transform: none; letter-spacing: 0; font-size: 13px; font-weight: 700; color: var(--ink); }
+.lg-input { position: relative; }
+.lg-input input { height: 50px; padding: 0 46px 0 44px; font-size: 14px; border-radius: 10px; background: #fff; border-color: #cfd9d1; }
+.lg-input input:focus { border-color: var(--green); box-shadow: 0 0 0 4px rgba(200,239,75,.35); transform: none; }
+.lg-input > svg { position: absolute; left: 14px; top: 50%; width: 18px; height: 18px; margin-top: -9px; color: var(--muted); pointer-events: none; transition: color .2s, transform .3s var(--spring); }
+.lg-input:focus-within > svg { color: var(--green); transform: scale(1.12); }
+.lg-eye { position: absolute; right: 6px; top: 50%; width: 38px; height: 38px; margin-top: -19px; display: grid; place-items: center; background: none; border: 0; border-radius: 8px; color: var(--muted); cursor: pointer; transition: color .2s, background .2s; }
+.lg-eye:hover { color: var(--green); background: var(--surface-soft); } .lg-eye svg { width: 18px; height: 18px; }
+.lg-eye:focus-visible, .lg-forgot:focus-visible { outline: 3px solid var(--lime-dark); outline-offset: 2px; }
+.lg-eye .off { display: none; } .lg-eye[aria-pressed="true"] .on { display: none; } .lg-eye[aria-pressed="true"] .off { display: block; }
+.lg-caps { display: none; margin-top: 8px; font-size: 12px; font-weight: 700; color: #8a5a00; } .lg-caps.show { display: block; animation: rise .3s var(--ease) both; }
+.lg .btn.lg-submit { width: 100%; height: 52px; margin: 8px 0 0; font-size: 15px; border-radius: 10px; background: var(--green); box-shadow: 0 12px 26px rgba(39,99,76,.28); }
+.lg .btn.lg-submit:hover:not(:disabled) { background: var(--green-dark); box-shadow: 0 16px 32px rgba(39,99,76,.34); }
+.lg-submit .arrow { transition: transform .3s var(--ease); } .lg-submit:hover .arrow { transform: translateX(4px); }
+.lg-foot { margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--line); text-align: center; font-size: 13px; color: var(--ink-soft); }
+.lg-foot a { text-decoration: none; }
+#errorArea .error-banner { border-radius: 10px; }
+
+@media (max-width: 880px) {
+  .lg-shell { grid-template-columns: 1fr; }
+  .lg-brand { display: none; }
+  .lg-form-side { min-height: 100vh; }
+  .lg-panel .lg-mobile-logo { display: block; }
+}
+@media (prefers-reduced-motion: reduce) { .lg-brand::before, .lg-brand::after, .lg-pass { animation: none; } }

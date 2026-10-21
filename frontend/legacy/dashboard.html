@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Gate Passes · Dashboard</title>
+<link rel="stylesheet" href="css/style.css?v=4">
+</head>
+<body>
+  <div class="container" style="max-width:1400px;">
+    <div style="margin-bottom:10px; font-size:18px; font-weight:700; color:#1f2937;">
+      Gate Pass Request &amp; Approval Process On Smartsheet (SS) | RGP
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <h1>Returnable Gate Passes</h1>
+      <button id="newChallanBtn" class="btn btn-primary">+ New Request</button>
+    </div>
+
+    <div class="card">
+      <div class="chips" id="chips"></div>
+      <div class="filters">
+        <div>
+          <label>Status</label>
+          <select id="f_status">
+            <option value="">All</option>
+            <option value="DRAFT">DRAFT</option><option value="SUBMITTED">PENDING CM APPROVAL</option>
+            <option value="CM_APPROVED">PENDING GSOC REVIEW</option><option value="CHANGES_REQUESTED">CHANGES REQUESTED</option>
+            <option value="ISSUED_HISTORY">ISSUED CHALLANS</option><option value="GATE_OUT">GATE OUT</option><option value="PARTIALLY_RETURNED">PARTIALLY RETURNED</option>
+            <option value="RETURNED">RETURNED</option><option value="CANCELLED">REJECTED</option>
+          </select>
+        </div>
+        <div>
+          <label>Movement Type</label>
+          <select id="f_movement">
+            <option value="">All</option>
+            <option>JOB_WORK</option><option>REPAIR</option><option>TESTING</option>
+            <option>EXHIBITION</option><option>BRANCH_TRANSFER</option><option>OTHER</option>
+          </select>
+        </div>
+        <div>
+          <label>Transport Name</label>
+          <input id="f_transport" placeholder="Search transport name...">
+        </div>
+        <div>
+          <label>Consignee</label>
+          <input id="f_consignee" placeholder="Search consignee...">
+        </div>
+        <div>
+          <label>From</label>
+          <input type="date" id="f_from">
+        </div>
+        <div>
+          <label>To</label>
+          <input type="date" id="f_to">
+        </div>
+        <div>
+          <button id="applyFilters" class="btn btn-secondary" style="margin-top:18px;">Apply</button>
+        </div>
+      </div>
+
+      <div id="listArea"></div>
+      <div id="pagination" style="margin-top:12px; display:flex; gap:8px; align-items:center;"></div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/dashboard.js?v=4"></script>
+</body>
+</html>

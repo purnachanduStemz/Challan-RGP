@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create / Edit Challan</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- Back Navigation -->
+        <a href="dashboard.html" style="font-size: 13px;">
+            &larr; Back to dashboard
+        </a>
+
+        <h1 id="pageTitle">New Challan</h1>
+
+        <div id="errorArea"></div>
+
+        <form id="challanForm">
+
+            <!-- =========================================================
+                 HEADER / IDENTITY
+            ========================================================== -->
+            <div class="card">
+                <h2>Header / Identity</h2>
+
+                <div class="row">
+
+                    <div>
+                        <label>Challan No.</label>
+                        <input
+                            id="challan_number"
+                            disabled
+                            placeholder="(assigned on save)"
+                        >
+                    </div>
+
+                    <div>
+                        <label>Fiscal Year</label>
+                        <input
+                            id="fiscal_year"
+                            disabled
+                            placeholder="(assigned on save)"
+                        >
+                    </div>
+
+                    <div>
+                        <label>Sequence No.</label>
+                        <input
+                            id="sequence_number"
+                            disabled
+                            placeholder="(assigned on save)"
+                        >
+                    </div>
+
+                    <div>
+                        <label>Gate Pass Sr. No.</label>
+                        <input
+                            id="gate_pass_serial_number"
+                            disabled
+                            placeholder="(assigned on save)"
+                        >
+                    </div>
+
+                    <div>
+                        <label>Issue Date *</label>
+                        <input
+                            type="date"
+                            id="issue_date"
+                            required
+                        >
+                    </div>
+
+                    <div>
+                        <label>Place of Issue *</label>
+
+                        <select id="place_of_issue" required>
+                            <option value="">
+                                Select location...
+                            </option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- =========================================================
+                 CONSIGNOR DETAILS
+            ========================================================== -->
+            <div class="card">
+
+                <h2>Consignor Details</h2>
+
+                <div class="row">
+
+                    <div>
+
+                        <h3 style="font-size: 13px; margin: 0 0 6px;">
+                            Consignor (From)
+                        </h3>
+
+                        <label>Entity Name</label>
+
+                        <input
+                            id="consignor_name"
+                            readonly
+                            required
+                            placeholder="Auto-filled from Place of Issue"
+                        >
+
+                        <label>Consignor State *</label>
+
+                        <input
+                            id="consignor_state"
+                            readonly
+                            required
+                            placeholder="Auto-filled from Place of Issue"
+                        >
+
+                        <label>Address *</label>
+
+                        <textarea
+                            id="consignor_address"
+                            required
+                            rows="2"
+                        ></textarea>
+
+                        <label>GSTIN *</label>
+
+                        <input
+                            id="consignor_gstin"
+                            readonly
+                            required
+                            maxlength="15"
+                            pattern="[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][1-9A-Z]Z[0-9A-Z]"
+                            title="GSTIN is populated from Place of Issue"
+                        >
+
+                        <span
+                            id="consignor_gstin_error"
+                            class="field-error"
+                            role="alert"
+                        ></span>
+
+                        <p class="section-note">
+                            Entity Name, Consignor State, Address and GSTIN
+                            are populated from the selected Place of Issue.
+                        </p>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- =========================================================
+                 CONSIGNEE DETAILS
+            ========================================================== -->
+            <div class="card">
+
+                <h2>Consignee Details</h2>
+
+                <div class="row">
+
+                    <div>
+
+                        <h3 style="font-size: 13px; margin: 0 0 6px;">
+                            Consignee (To)
+                        </h3>
+
+                        <label>Name *</label>
+
+                        <input
+                            id="consignee_name"
+                            required
+                        >
+
+                        <label>Address *</label>
+
+                        <textarea
+                            id="consignee_address"
+                            required
+                            rows="2"
+                        ></textarea>
+
+                        <label>GSTIN *</label>
+
+                        <input
+                            id="consignee_gstin"
+                            required
+                            maxlength="15"
+                            pattern="[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][1-9A-Z]Z[0-9A-Z]"
+                            title="Enter a valid 15-character GSTIN, for example 06ABCDE1234F1Z5"
+                            placeholder="e.g. 06ABCDE1234F1Z5"
+                        >
+
+                        <span
+                            id="consignee_gstin_error"
+                            class="field-error"
+                            role="alert"
+                        ></span>
+
+                        <label>State *</label>
+
+                        <input
+                            id="consignee_state"
+                            required
+                            placeholder="Enter state"
+                        >
+
+                        <p class="section-note">
+                            Enter the consignee state. This field is editable.
+                        </p>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- =========================================================
+                 MOVEMENT DETAILS
+            ========================================================== -->
+            <div class="card">
+
+                <h2>Movement Details</h2>
+
+                <div class="row">
+
+                    <div>
+                        <label>Movement Type *</label>
+
+                        <select id="movement_type" required>
+                            <option value="">Select...</option>
+                            <option value="JOB_WORK">JOB_WORK</option>
+                            <option value="REPAIR">REPAIR</option>
+                            <option value="TESTING">TESTING</option>
+                            <option value="EXHIBITION">EXHIBITION</option>
+                            <option value="BRANCH_TRANSFER">BRANCH_TRANSFER</option>
+                            <option value="OTHER">OTHER</option>
+                        </select>
+                    </div>
+
+
+                    <div style="flex-basis: 100%;">
+
+                        <label>Reason for Movement</label>
+
+                        <textarea
+                            id="movement_reason"
+                            required
+                            rows="3"
+                            placeholder="Enter the reason for this movement"
+                        ></textarea>
+
+                    </div>
+
+
+                    <div
+                        id="otherDescWrap"
+                        style="display: none;"
+                    >
+
+                        <label>Other - Description *</label>
+
+                        <input
+                            id="movement_type_other_description"
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label>Place of Supply *</label>
+
+                        <input
+                            id="place_of_supply"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="checkbox-row taxable-supply-box">
+
+                    <input
+                        type="checkbox"
+                        id="is_taxable_supply"
+                    >
+
+                    <label style="margin: 0;">
+                        This is a taxable supply
+                    </label>
+
+                </div>
+
+
+                <p class="section-note">
+                    Note: Tax fields apply only where the movement constitutes
+                    a taxable supply to the consignee (e.g., goods sent on
+                    approval basis). When "This is a taxable supply" is
+                    ticked, Total Taxable Value and Tax Rate are mandatory
+                    (only Cess is optional).
+
+                    For non-supply movements (job work, repair, testing,
+                    exhibition, self-branch transfer), leave it unticked;
+                    this challan must still accompany the goods per Rule 55,
+                    CGST Rules 2017.
+                </p>
+
+            </div>
+
+
+            <!-- =========================================================
+                 TRANSPORT DETAILS
+            ========================================================== -->
+            <div class="card">
+
+                <h2>Transport Details</h2>
+
+                <div class="row">
+
+                    <div>
+
+                        <label>Transporter Name *</label>
+
+                        <input
+                            id="transporter_name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label>Transporter GSTIN</label>
+
+                        <input
+                            id="transporter_gstin"
+                            maxlength="15"
+                            pattern="[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][1-9A-Z]Z[0-9A-Z]"
+                            title="Enter a valid 15-character GSTIN"
+                            placeholder="e.g. 06ABCDE1234F1Z5"
+                        >
+
+                        <span
+                            id="transporter_gstin_error"
+                            class="field-error"
+                            role="alert"
+                        ></span>
+
+                    </div>
+
+
+                    <div>
+
+                        <label>Vehicle Number Available *</label>
+
+                        <select
+                            id="vehicle_available"
+                            required
+                        >
+                            <option value="">Select...</option>
+                            <option value="YES">Yes</option>
+                            <option value="NO">No</option>
+                        </select>
+
+                    </div>
+
+
+                    <div>
+
+                        <label>Vehicle No.</label>
+
+                        <input id="vehicle_number">
+
+                        <div class="section-note">
+                            Select No when a vehicle number is unavailable.
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <label>E-Way Bill No.</label>
+
+                        <input id="eway_bill_number">
+
+                        <div class="section-note">
+                            Required according to the applicable interstate,
+                            state, district and job-work rules.
+                        </div>
+
+                        <div
+                            class="section-note"
+                        >
+                            <strong>E-Way Bill Details:</strong> Mandatory for
+                            inter-state movement above ₹50,000 and for goods
+                            sent to a job worker in another state, irrespective
+                            of value. For intra-state movement, it is mandatory
+                            above ₹50,000 in Haryana, Uttar Pradesh, Kerala,
+                            Telangana and West Bengal, and above ₹1,00,000 in
+                            Delhi, Tamil Nadu, Maharashtra and Madhya Pradesh.
+                            For Madhya Pradesh, it is not required for movement
+                            within the same district.
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="vehicleRemarksWrap"
+                        style="display: none; flex-basis: 100%;"
+                    >
+
+                        <label>Remarks *</label>
+
+                        <textarea
+                            id="remarks"
+                            rows="3"
+                            placeholder="Explain why the vehicle number is unavailable"
+                        ></textarea>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- =========================================================
+                 AUTHORIZATION
+            ========================================================== -->
+            <div class="card">
+
+                <h2>Authorization</h2>
+
+                <div class="row">
+
+                    <div>
+
+                        <label>Issued To (Employee Name) *</label>
+
+                        <input
+                            id="issued_to_employee_name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label>Checked By *</label>
+
+                        <input
+                            id="checked_by_name"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================================================
+                 TAX DETAILS
+            ========================================================== -->
+            <div
+                class="card"
+                id="taxSection"
+                style="display: none;"
+            >
+
+                <h2>Tax Details</h2>
+
+                <div
+                    id="taxSection_error"
+                    class="section-error"
+                ></div>
+
+                <div class="row">
+
+                    <div>
+
+                        <label>Total Taxable Value *</label>
+
+                        <input
+                            type="number"
+                            step="0.01"
+                            min="0"
+                            id="total_taxable_value"
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label>Tax Rate (%) *</label>
+
+                        <select id="tax_rate">
+
+                            <option value="">
+                                Select rate...
+                            </option>
+
+                            <option value="5">5%</option>
+                            <option value="18">18%</option>
+                            <option value="40">40%</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div>
+
+                        <label>CGST (calculated)</label>
+
+                        <input
+                            type="number"
+                            step="0.01"
+                            min="0"
+                            id="cgst_amount"
+                            readonly
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label>SGST/UTGST (calculated)</label>
+
+                        <input
+                            type="number"
+                            step="0.01"
+                            min="0"
+                            id="sgst_utgst_amount"
+                            readonly
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label>IGST (calculated)</label>
+
+                        <input
+                            type="number"
+                            step="0.01"
+                            min="0"
+                            id="igst_amount"
+                            readonly
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            Cess
+                            <span
+                                style="
+                                    font-weight: 400;
+                                    font-size: 12px;
+                                    color: #6b7280;
+                                "
+                            >
+                                (optional)
+                            </span>
+                        </label>
+
+                        <input
+                            type="number"
+                            step="0.01"
+                            min="0"
+                            id="cess_amount"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <p class="section-note">
+                    CGST and SGST/UTGST are split equally for intra-state
+                    transactions. IGST applies to inter-state transactions.
+                </p>
+
+            </div>
+
+
+            <!-- =========================================================
+                 GOODS
+            ========================================================== -->
+            <div class="card">
+
+                <h2>Goods</h2>
+
+                <p class="section-note">
+                    At least 1 complete item line is required.
+                    Select a product name from the suggestions or type a
+                    custom product name. HSN and GST rate are editable
+                    for each item and are required before submission. Where
+                    the rate depends on the product specification or value
+                    (for example, lanyards and badges), select the applicable
+                    rate instead of relying on the suggestion.
+                </p>
+
+                <div
+                    id="items_error"
+                    class="section-error"
+                ></div>
+
+                <datalist id="goodsMasterOptions"></datalist>
+
+                <div id="itemsList"></div>
+
+                <button
+                    type="button"
+                    id="addItemBtn"
+                    class="btn btn-secondary"
+                >
+                    + Add Item
+                </button>
+
+            </div>
+
+
+            <!-- =========================================================
+                 RETURN TRACKING
+            ========================================================== -->
+            <div class="card">
+
+                <h2>Return Tracking</h2>
+
+                <div class="row">
+
+                    <div>
+
+                        <label>Expected Return Date *</label>
+
+                        <input
+                            type="date"
+                            id="expected_return_date"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <p class="section-note">
+                    For inputs/capital goods sent for job work, goods must be
+                    returned within 1 year (inputs) / 3 years (capital goods)
+                    of the original challan date per Section 143, CGST Act.
+                    Failing which, the movement is deemed a taxable supply
+                    with tax and interest payable.
+                </p>
+
+            </div>
+
+
+            <!-- =========================================================
+                 ADDITIONAL REMARKS
+            ========================================================== -->
+            <div class="card">
+
+                <h2>Remarks</h2>
+
+                <label>Additional Remarks</label>
+
+                <textarea
+                    id="final_remarks"
+                    rows="3"
+                    placeholder="Enter any additional remarks"
+                ></textarea>
+
+            </div>
+
+
+            <!-- =========================================================
+                 FORM ACTIONS
+            ========================================================== -->
+            <div class="card">
+
+                <button
+                    type="button"
+                    id="saveDraftBtn"
+                    class="btn btn-secondary"
+                >
+                    Save Draft
+                </button>
+
+
+                <button
+                    type="button"
+                    id="submitBtn"
+                    class="btn btn-primary"
+                >
+                    Submit for Approval
+                </button>
+
+
+                <div
+                    id="submitHint"
+                    class="section-note"
+                    style="display: none;"
+                >
+                    Submit is enabled once you modify at least one field
+                    of this application.
+                </div>
+
+
+                <div
+                    id="versionInfo"
+                    class="section-note"
+                >
+                    The first submission is recorded as <b>V1</b>
+                    (Original Submission). If changes are requested,
+                    you can resubmit as <b>V2</b> and then <b>V3</b>
+                    (final); no further resubmission is allowed after V3.
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+
+
+    <!-- ===============================================================
+         JAVASCRIPT FILES
+    ================================================================ -->
+
+    <script src="js/api.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/indian-states.js"></script>
+    <script src="js/gstin-locations.js"></script>
+    <script src="js/goods-master.js"></script>
+    <script src="js/challan-form.js?v=25"></script>
+
+</body>
+
+</html>

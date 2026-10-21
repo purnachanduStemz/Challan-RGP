@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Delivery Challan cum Gate Pass</title></head>
+<body>
+<script>
+  const token = localStorage.getItem('challan_token');
+  window.location.href = token ? 'dashboard.html' : 'login.html';
+</script>
+</body>
+</html>

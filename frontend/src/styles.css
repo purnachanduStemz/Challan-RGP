@@ -1,0 +1,15 @@
+#root,
+#legacy-root {
+  min-height: 100vh;
+}
+
+.react-load-error {
+  max-width: 540px;
+  margin: 80px auto;
+  padding: 18px 20px;
+  border-left: 3px solid #b5453b;
+  border-radius: 6px;
+  background: #fbe5e1;
+  color: #96392f;
+  font: 600 14px/1.5 Manrope, "Segoe UI", sans-serif;
+}

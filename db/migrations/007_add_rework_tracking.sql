@@ -1,0 +1,3 @@
+ALTER TABLE delivery_challans
+  ADD COLUMN IF NOT EXISTS rework_count INTEGER NOT NULL DEFAULT 0,
+  ADD COLUMN IF NOT EXISTS rework_stage VARCHAR(50);

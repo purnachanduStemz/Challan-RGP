@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login · Delivery Challan cum Gate Pass</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/login.css">
+</head>
+<body class="lg">
+  <div class="lg-shell">
+    <aside class="lg-brand" aria-hidden="true">
+      <div class="lg-logo-chip"><img src="assets/logo.png" alt=""></div>
+      <div class="lg-pitch">
+        <h2>Every item that goes out, tracked until it comes back.</h2>
+        <p>Raise a challan, get it approved and follow the material from the gate to its return, all in one place.</p>
+      </div>
+      <div class="lg-pass">
+        <div class="lg-pass-top"><b>Returnable Gate Pass</b><span class="lg-badge">Approved</span></div>
+        <div class="lg-steps">
+          <div class="lg-bar"><i></i></div>
+          <span>Approved</span><span>Gate out</span><span>Received back</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="lg-form-side">
+      <div class="lg-panel">
+        <div>
+          <img src="assets/logo.png" alt="Stemz" class="lg-mobile-logo">
+          <h1>Welcome back</h1>
+          <p class="lg-sub">Log in to manage your delivery challans and gate passes.</p>
+        </div>
+
+        <div id="errorArea" role="alert"></div>
+
+        <form id="loginForm" novalidate>
+          <div class="lg-field">
+            <label for="email">Email</label>
+            <div class="lg-input">
+              <input type="email" id="email" required autocomplete="username" placeholder="you@company.com">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+          </div>
+
+          <div class="lg-field">
+            <label for="password">Password</label>
+            <div class="lg-input">
+              <input type="password" id="password" required autocomplete="current-password" placeholder="Enter your password">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+              <button type="button" class="lg-eye" id="togglePw" aria-label="Show password" aria-pressed="false">
+                <svg class="on" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.46 12C3.73 7.94 7.52 5 12 5s8.27 2.94 9.54 7c-1.27 4.06-5.06 7-9.54 7S3.73 16.06 2.46 12z"/></svg>
+                <svg class="off" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.88 9.88A3 3 0 0010.12 13.6M3 3l18 18M9.9 5.1A9.8 9.8 0 0112 5c4.48 0 8.27 2.94 9.54 7a9.9 9.9 0 01-2.3 3.8M6.2 6.2A9.9 9.9 0 002.46 12c1.27 4.06 5.06 7 9.54 7a9.8 9.8 0 004.1-.9"/></svg>
+              </button>
+            </div>
+            <div class="lg-caps" id="capsHint">Caps Lock is on</div>
+          </div>
+
+          <button type="submit" id="submitBtn" class="btn btn-primary lg-submit">Log in <span class="arrow" aria-hidden="true">&rarr;</span></button>
+        </form>
+
+        <div class="lg-foot"><a href="change-password.html?v=3">Change password</a></div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script>
+    if (Auth.getToken()) window.location.href = Auth.homePage();
+
+    const pw = document.getElementById('password');
+    const eye = document.getElementById('togglePw');
+    eye.addEventListener('click', () => {
+      const show = pw.type === 'password';
+      pw.type = show ? 'text' : 'password';
+      eye.setAttribute('aria-pressed', show);
+      eye.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+    });
+    const caps = document.getElementById('capsHint');
+    const checkCaps = (e) => caps.classList.toggle('show', e.getModifierState && e.getModifierState('CapsLock'));
+    pw.addEventListener('keydown', checkCaps); pw.addEventListener('keyup', checkCaps);
+    pw.addEventListener('blur', () => caps.classList.remove('show'));
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const errorArea = document.getElementById('errorArea');
+      const submitBtn = document.getElementById('submitBtn');
+      errorArea.innerHTML = '';
+      const email = document.getElementById('email').value.trim();
+      const password = pw.value;
+      if (!email || !password) { showError(errorArea, new Error('Enter your email and password.')); return; }
+      submitBtn.classList.add('btn-loading');
+      try {
+        const result = await api('/auth/login', { method: 'POST', body: JSON.stringify({ email, password }) });
+        Auth.setSession(result.token, result.user);
+        window.location.href = result.user.must_change_password ? 'change-password.html' : Auth.homePage(result.user);
+      } catch (err) {
+        submitBtn.classList.remove('btn-loading');
+        showError(errorArea, err);
+      }
+    });
+  </script>
+</body>
+</html>

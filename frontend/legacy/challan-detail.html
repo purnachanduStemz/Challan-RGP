@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Challan Detail</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <a href="dashboard.html" style="font-size:13px;">&larr; Back to dashboard</a>
+    <div id="errorArea"></div>
+    <div id="content"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div>
+  </div>
+
+  <!-- Screen 5: Record Return modal -->
+  <div class="modal-overlay" id="returnModal" style="display:none;">
+    <div class="modal">
+      <h2>Record Return</h2>
+      <div id="returnErrorArea"></div>
+      <label>Actual Return Date *</label><input type="date" id="ret_actual_return_date">
+      <label>Return Condition *</label>
+      <select id="ret_return_condition">
+        <option value="GOOD">Good</option><option value="DAMAGED">Damaged</option><option value="PARTIAL">Partial</option>
+      </select>
+      <label>Receiving Date *</label><input type="date" id="ret_received_back_by">
+      <div class="checkbox-row">
+        <input type="checkbox" id="ret_is_full_return" checked>
+        <label style="margin:0;">This is a full return</label>
+      </div>
+      <label>Job Work Ref</label><input id="ret_job_work_ref">
+      <label>ITC-04 Reported</label>
+      <select id="ret_itc04_reported"><option value="NA">NA</option><option value="Y">Y</option><option value="N">N</option></select>
+      <label>Remarks</label><textarea id="ret_remarks" rows="2"></textarea>
+      <div style="margin-top:16px;">
+        <button class="btn btn-success" id="submitReturnBtn">Save Return</button>
+        <button class="btn btn-secondary" id="cancelReturnModal">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen 6: Reject / Cancel modal -->
+  <div class="modal-overlay" id="reasonModal" style="display:none;">
+    <div class="modal">
+      <h2 id="reasonModalTitle">Reason</h2>
+      <div id="reasonErrorArea"></div>
+      <label>Reason *</label><textarea id="reasonText" rows="3"></textarea>
+      <div style="margin-top:16px;">
+        <button class="btn btn-danger" id="submitReasonBtn">Confirm</button>
+        <button class="btn btn-secondary" id="cancelReasonModal">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/challan-detail.js"></script>
+</body>
+</html>

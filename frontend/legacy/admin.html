@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Console · Returnable Gate Pass</title>
+<link rel="stylesheet" href="css/style.css?v=5">
+</head>
+<body>
+  <div class="container" style="max-width:1280px;">
+    <div class="adm-head">
+      <h1>Admin Console</h1>
+    </div>
+    <p class="section-note" style="margin-top:0;">Manage users and credentials, digital signatures, form fields and approval blocks. Changes apply to new requests and newly generated documents.</p>
+    <div id="errorArea"></div>
+    <div id="toastArea"></div>
+
+    <div class="adm-tabs" id="tabs">
+      <button class="adm-tab active" data-tab="overview">Overview</button>
+      <button class="adm-tab" data-tab="users">Users &amp; Credentials</button>
+      <button class="adm-tab" data-tab="fields">Form Fields</button>
+      <button class="adm-tab" data-tab="approvals">Approvals &amp; Signatures</button>
+      <button class="adm-tab" data-tab="activity">Activity Log</button>
+    </div>
+
+    <div id="tab-overview"></div>
+    <div id="tab-users" style="display:none;"></div>
+    <div id="tab-fields" style="display:none;"></div>
+    <div id="tab-approvals" style="display:none;"></div>
+    <div id="tab-activity" style="display:none;"></div>
+  </div>
+
+  <div id="modalRoot"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/admin.js?v=5"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+const GSTIN_LOCATIONS = [
+  { entity: 'Stemz Radiology Pvt. Ltd.', location: 'Corporate Office Gurugram', state: 'Haryana', gstin: '06AAXCS4019F1Z4' },
+  { entity: 'Stemz Radiology Pvt. Ltd.', location: 'QMC Delhi', state: 'Delhi', gstin: '07AAXCS4019F1Z2' },
+  { entity: 'Stemz Radiology Pvt. Ltd.', location: 'QMC Lucknow', state: 'Uttar Pradesh', gstin: '09AAXCS4019F1ZY' },
+  { entity: 'Stemz Radiology Pvt. Ltd.', location: 'QMC Kolkata', state: 'West Bengal', gstin: '19AAXCS4019F1ZX' },
+  { entity: 'Stemz Radiology Pvt. Ltd.', location: 'QMC Mumbai', state: 'Maharashtra', gstin: '27AAXCS4019F1Z0' },
+  { entity: 'Stemz Radiology Pvt. Ltd.', location: 'QMC Kochi', state: 'Kerala', gstin: '32AAXCS4019F1Z9' },
+  { entity: 'Stemz Radiology Pvt. Ltd.', location: 'QMC Chennai', state: 'Tamil Nadu', gstin: '33AAXCS4019F1Z7' },
+  { entity: 'Stemz Radiology Pvt. Ltd.', location: 'Corporate Office Chennai', state: 'Tamil Nadu', gstin: '33AAXCS4019F1Z7' },
+  { entity: 'Stemz Radiology Pvt. Ltd.', location: 'QMC Hyderabad', state: 'Telangana', gstin: '36AAXCS4019F1Z1' },
+  { entity: 'Stemz Healthcare Pvt. Ltd.', location: 'Corporate Office Gurugram', state: 'Haryana', gstin: '06AAWCS6335F1ZY' },
+  { entity: 'Stemz Healthcare Pvt. Ltd.', location: 'Chennai', state: 'Tamil Nadu', gstin: '33AAWCS6335F1Z1' },
+  { entity: 'Stemz Healthcare Pvt. Ltd.', location: 'Indore', state: 'Madhya Pradesh', gstin: '23AAWCS6335F1Z2' },
+  { entity: 'ND Diagnostics India Pvt. Ltd.', location: 'Udyog Vihar / Soul Space Gurgaon', state: 'Haryana', gstin: '06AAJCS5269B1ZC' },
+  { entity: 'ND Diagnostics India Pvt. Ltd.', location: 'ND Diagnostics Kochi', state: 'Kerala', gstin: '32AAJCS5269B1ZH' },
+  { entity: 'ND Diagnostics India Pvt. Ltd.', location: 'New Delhi', state: 'Delhi', gstin: '07AAJCS5269B1ZA' },
+  { entity: 'Stemztech Industries Pvt. Ltd.', location: 'Noida', state: 'Uttar Pradesh', gstin: '09ABFCS9740J1ZR' },
+  { entity: 'Stemztech Industries Pvt. Ltd.', location: 'Gurugram', state: 'Haryana', gstin: '06ABFCS9740J1ZX' },
+  { entity: 'Isante Agri Private Limited', location: 'Gurugram', state: 'Haryana', gstin: '06AAGCI4526G1ZP' },
+  { entity: 'Isante Agri Private Limited', location: 'Mumbai', state: 'Maharashtra', gstin: '27AAGCI4526G1ZL' },
+  { entity: 'Negam Care Pvt. Ltd.', location: 'Namsai', state: 'Arunachal Pradesh', gstin: '12AAICN3339G1ZO' },
+  { entity: 'Nurturehire Private Limited', location: 'Gurugram', state: 'Haryana', gstin: '06AAJCN3532C1ZT' },
+  { entity: 'Mecgate Industries Pvt. Ltd.', location: 'Gurugram', state: 'Haryana', gstin: '06AATCM3622L1Z2' },
+  { entity: 'Holix Power Solutions Pvt. Ltd.', location: 'Noida', state: 'Uttar Pradesh', gstin: '09AAGCH3749E1ZH' }
+];
+
+function getGstinLocation(gstin) {
+  return GSTIN_LOCATIONS.find((entry) => entry.gstin === gstin) || null;
+}
+
+module.exports = { GSTIN_LOCATIONS, getGstinLocation };
