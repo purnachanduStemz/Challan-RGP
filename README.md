@@ -1,4 +1,4 @@
-# Returnable Delivery Challan cum Gate Pass (MVP)
+# Returnable Delivery Challan cum Gate Pass
 
 A working implementation of the Technical Specification: Node/Express backend, PostgreSQL
 database, and a plain HTML/JS frontend (no build step required). Built and tested end-to-end
